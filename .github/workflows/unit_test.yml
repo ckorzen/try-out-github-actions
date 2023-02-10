@@ -7,20 +7,19 @@ on:
   workflow_call:
 
 jobs:
-  unit_test:
+  run:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install requirements
-        run: |
-          sudo apt install -y build-essential git cmake
+      - name: checking out code
+        uses: actions/checkout@v3
 
-      - name: Build gtest
-        run: |
-          make build-gtest
+      - name: installing requirements
+        run: sudo apt install -y build-essential git cmake
 
-      - name: make test
-        run: |
-          make test
+      - name: building gtest
+        run: make build-gtest
+
+      - name: unit Testing
+        run: make test
 

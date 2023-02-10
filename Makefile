@@ -78,8 +78,7 @@ build-gtest:
 
 release: clean write-version-header-file compile
 	git tag -a v$(VERSION) -m "Release v$(VERSION)"
-	git commit -m "Release v$(VERSION)"
-	git push
+	git push origin v$(VERSION)
 
 write-version-header-file:
 	sed -i "s/VERSION = \".*\"/VERSION = \"$(VERSION)\"/g" $(VERSION_HEADER_FILE)

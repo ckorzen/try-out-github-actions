@@ -6,11 +6,9 @@
  * Modified under the Poppler project - http://poppler.freedesktop.org
  */
 
-#ifndef XXX_H_
-#define XXX_H_
+#ifndef VERSION_H_
+#define VERSION_H_
 
-#include <string>
+const char* VERSION = "0.2.0";
 
-const std::string VERSION = "0.1.0";
-
-#endif  // XXX_H_
+#endif  // VERSION_H_

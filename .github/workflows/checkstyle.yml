@@ -7,15 +7,15 @@ on:
   workflow_call:
 
 jobs:
-  checkstyle:
+  run:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install python3
-        run: |
-          sudo apt install -y python3
+      - name: checking out code
+        uses: actions/checkout@v3
 
-      - name: make checkstyle
-        run: |
-          make checkstyle
+      - name: installing python3
+        run: sudo apt install -y python3
+
+      - name: checking code style
+        run: make checkstyle

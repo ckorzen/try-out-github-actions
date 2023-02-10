@@ -3,44 +3,48 @@ name: Creating Release
 on:
   push:
     tags:
-      - "v*.*.*"
+      - v*.*.*
 
 jobs:
   checkstyle:
     uses: ./.github/workflows/checkstyle.yml
+
   unit_test:
     uses: ./.github/workflows/unit_test.yml
-  build_release:
+
+  run:
     needs: [checkstyle, unit_test]
-    name: Building release
+    name: creating release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: checking out code
         uses: actions/checkout@v3
-      - name: Build Project
-        run: |
-          make compile
-      - name: Create Release
+
+      - name: building project
+        run: make compile
+
+      - name: creating release
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v0.0.3
-          release_name: Release v0.0.3
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
             - First Change
             - Second Change
           draft: false
           prerelease: false
-      - name: Upload Release Asset
+
+      - name: uploading release asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./src/GitHubActionsMain
           asset_name: my-executable
           asset_content_type: application/octet-stream
