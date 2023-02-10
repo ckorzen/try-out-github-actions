@@ -1,8 +1,6 @@
 name: unit_test
 
-on:
-  push:
-    branches: [ main ]
+on: workflow_call
 
 jobs:
   unit_test:
