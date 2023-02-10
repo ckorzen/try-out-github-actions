@@ -1,0 +1,17 @@
+name: checkstyle
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/checkstyle.yml
+
+  unit_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/unit_test.yml
