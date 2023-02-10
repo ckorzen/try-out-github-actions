@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2022, University of Freiburg,
  * Chair of Algorithms and Data Structures.
@@ -7,11 +6,11 @@
  * Modified under the Poppler project - http://poppler.freedesktop.org
  */
 
-#include <iostream>  // std::cout
+#ifndef XXX_H_
+#define XXX_H_
 
-#include "./version.h"
+#include <string>
 
-int main(int argc, char* argv[]) {
-  std::cout << "Hello " << VERSION << std::endl;
-  return 0;
-}
+const std::string VERSION = "0.0.2";
+
+#endif  // XXX_H_

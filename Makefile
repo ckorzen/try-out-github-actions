@@ -1,4 +1,5 @@
 BINARY_NAME = pdftotext++
+VERSION =
 
 SRC_DIR = src
 TEST_DIR = test
@@ -8,6 +9,7 @@ MAIN_BINARY_FILE = $(SRC_DIR)/GitHubActionsMain
 TEST_BINARY_FILES = $(basename $(wildcard $(TEST_DIR)/*Test.cpp $(TEST_DIR)/**/*Test.cpp))
 HEADER_FILES = $(wildcard $(SRC_DIR)/*.h $(SRC_DIR)/**/*.h)
 OBJECT_FILES = $(addsuffix .o, $(basename $(filter-out %Main.cpp %Test.cpp, $(wildcard $(SRC_DIR)/*.cpp $(SRC_DIR)/**/*.cpp))))
+VERSION_HEADER_FILE = $(SRC_DIR)/version.h
 
 CXX = g++ -g -Wall -Wextra -pedantic -std=c++17
 #CXX = g++ -O3 -Wall -Wextra -pedantic -std=c++17
@@ -71,3 +73,13 @@ build-gtest:
 	mkdir -p $(GTEST_DIR)
 	cd $(GTEST_DIR) && git clone https://github.com/google/googletest.git . && git checkout b796f7d && mkdir -p build
 	cd $(GTEST_DIR)/build && cmake .. && make
+
+# ==================================================================================================
+
+release: clean write-version-header-file compile
+	git tag -a v$(VERSION) -m "Release v$(VERSION)"
+	git commit -m "Release v$(VERSION)"
+	git push
+
+write-version-header-file:
+	sed -i "s/VERSION = \".*\"/VERSION = \"$(VERSION)\"/g" $(VERSION_HEADER_FILE)
