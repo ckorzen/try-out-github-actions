@@ -2,8 +2,6 @@ BINARY_NAME = pdftotext++
 
 SRC_DIR = src
 TEST_DIR = test
-POPPLER_DIR = libs/poppler
-UTF8PROC_DIR = libs/utf8proc
 GTEST_DIR = libs/gtest
 
 MAIN_BINARY_FILE = $(SRC_DIR)/GitHubActionsMain
@@ -13,8 +11,7 @@ OBJECT_FILES = $(addsuffix .o, $(basename $(filter-out %Main.cpp %Test.cpp, $(wi
 
 CXX = g++ -g -Wall -Wextra -pedantic -std=c++17
 #CXX = g++ -O3 -Wall -Wextra -pedantic -std=c++17
-# Without the "-Wl,-rpath,$(POPPLER_DIR)/build" part in the next line, libpoppler.so is not found when the tests are executed by Github actions.
-LIBS = -I$(POPPLER_DIR) -I$(POPPLER_DIR)/build -I$(POPPLER_DIR)/build/poppler -I$(UTF8PROC_DIR) -L$(POPPLER_DIR)/build -Wl,-rpath,$(POPPLER_DIR)/build -L$(UTF8PROC_DIR)/build -lpoppler -lutf8proc
+LIBS =
 LIBS_TEST = $(LIBS) -I$(GTEST_DIR)/googletest/include -L $(GTEST_DIR)/build/lib/ -lgtest -lgtest_main -lpthread
 
 CPPLINT_PATH = cpplint.py
@@ -66,21 +63,7 @@ install pdftotext: $(MAIN_BINARY_FILE)
 
 # ==================================================================================================
 
-build-libs: build-poppler build-utf8proc build-gtest
-
-build-poppler:
-	@echo "\033[34;1mBuilding poppler ...\033[0m"
-
-	mkdir -p $(POPPLER_DIR)
-	cd $(POPPLER_DIR) && git clone https://github.com/freedesktop/poppler.git . && git checkout 065dca3 && mkdir -p build
-	cd $(POPPLER_DIR)/build && cmake -DBUILD_GTK_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DBUILD_QT6_TESTS=OFF -DBUILD_CPP_TESTS=OFF -DBUILD_MANUAL_TESTS=OFF -DENABLE_BOOST=OFF -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_GOBJECT_INTROSPECTION=OFF -DENABLE_QT5=OFF -DENABLE_QT6=OFF -DENABLE_LIBCURL=OFF -DRUN_GPERF_IF_PRESENT=OFF -DENABLE_LIBPNG=OFF .. && make poppler
-
-build-utf8proc:
-	@echo "\033[34;1mBuilding utf8proc ...\033[0m"
-
-	mkdir -p $(UTF8PROC_DIR)
-	cd $(UTF8PROC_DIR) && git clone https://github.com/JuliaStrings/utf8proc.git . && git checkout 1cb28a6 && mkdir -p build
-	cd $(UTF8PROC_DIR)/build && cmake .. && make
+build-libs: build-gtest
 
 build-gtest:
 	@echo "\033[34;1mBuilding gtest ...\033[0m"
