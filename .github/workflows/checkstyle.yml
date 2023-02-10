@@ -6,12 +6,6 @@ on:
       - main
   workflow_call:
 
-on:
-  push:
-    branches:
-      - main
-
-
 jobs:
   checkstyle:
     runs-on: ubuntu-latest
