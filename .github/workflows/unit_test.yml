@@ -1,10 +1,10 @@
 name: unit_test
 
 on:
-  workflow_call
   push:
     branches:
       - main
+  workflow_call:
 
 jobs:
   unit_test:
