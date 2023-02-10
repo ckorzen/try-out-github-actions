@@ -28,8 +28,8 @@ jobs:
           prerelease: false
           release_name: 0.0.1
           tag_name: ${{ github.ref }}
-          env:
-            GITHUB_TOKEN: ${{ github.token }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       # - name: Create Release
       #   id: create_release
