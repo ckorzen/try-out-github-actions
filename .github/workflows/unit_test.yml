@@ -1,0 +1,25 @@
+name: unit_test
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  unit_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install requirements
+        run: |
+          sudo apt install -y build-essential git cmake
+
+      - name: Build gtest
+        run: |
+          make build-gtest
+          ls -l libs/poppler/build
+
+      - name: make test
+        run: |
+          make test
+
