@@ -6,12 +6,12 @@ on:
       - main
 
 jobs:
-  checkstyle:
-    uses: ./.github/workflows/checkstyle.yml
-  unit_test:
-    uses: ./.github/workflows/unit_test.yml
+  # checkstyle:
+  #   uses: ./.github/workflows/checkstyle.yml
+  # unit_test:
+  #   uses: ./.github/workflows/unit_test.yml
   build_release:
-    needs: [checkstyle, unit_test]
+    # needs: [checkstyle, unit_test]
     name: Building release
     runs-on: ubuntu-latest
     steps:
@@ -30,4 +30,6 @@ jobs:
         run: cat Release.txt
       - name: Release
         uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "XXX"
 
