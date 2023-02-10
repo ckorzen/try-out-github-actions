@@ -20,16 +20,10 @@ jobs:
       - name: Build Project
         run: |
           make compile
-      - name: Create Release
-        uses: actions/create-release@v1
-        id: create_release
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          draft: false
-          prerelease: false
-          release_name: 0.0.1
-          tag_name: ${{ github.ref }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          files: src/GitHubActionsMain
 
       # - name: Create Release
       #   id: create_release
