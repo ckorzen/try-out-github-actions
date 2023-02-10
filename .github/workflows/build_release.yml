@@ -30,4 +30,6 @@ jobs:
         run: cat Release.txt
       - name: Release
         uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "XXX"
 
