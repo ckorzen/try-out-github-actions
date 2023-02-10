@@ -25,12 +25,5 @@ jobs:
       #   with:
       #     files: src/GitHubActionsMain
       - name: Build
-        run: echo "Hello World" > Release.txt
-      - name: Test
-        run: cat Release.txt
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: "XXX"
-          token: ${{ github.token }}
+        run: echo ${{ github.token }}
 
