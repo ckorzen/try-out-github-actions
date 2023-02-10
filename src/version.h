@@ -11,6 +11,6 @@
 
 #include <string>
 
-const std::string VERSION = "0.0.2";
+const std::string VERSION = "0.1.0";
 
 #endif  // XXX_H_
