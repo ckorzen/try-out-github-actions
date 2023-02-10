@@ -1,4 +1,4 @@
-name: checkstyle
+name: Build release
 
 on:
   push:
@@ -10,3 +10,10 @@ jobs:
     uses: ./.github/workflows/checkstyle.yml
   unit_test:
     uses: ./.github/workflows/unit_test.yml
+  build_release:
+    needs: [checkstyle, unit_test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          echo "Building release"
